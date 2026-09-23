@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chess 2</title>
+    <style>
+     body {
+        font-family: monospace;
+        background: #ffffff;
+        color: #000000;
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+        canvas {
+        border: 2px solid #000000;
+        cursor: pointer;
+        }
+        .panel {
+        flex: 1;
+        border: 2px solid #000000;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        }
+        .shop {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+        }
+        .shop-btn {
+        border: 1px solid #000000;
+        padding: 6px;
+        text-align: center;
+        cursor: pointer;
+        font-size: 0.8rem;
+        }
+        .shop-btn.selected {
+        background: #000000;
+        color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <h1> chess 2</h1>
+    <div class="container>
+        <div>
+            <canvas id="gridCanvas" width="360" height="360"></canvas>
+            <div style="display: flex; gap: 7px; margin-top: 14px;">
+                <button id ="turnbtn" class="btn" style="flex: 1;">end turn</button>
+                <button id="resetbtn" class="btn">reset</button>
+        </div>
+    </div>
+    <div class="panel">
+        <div>
+            <div style="font-weight: bolder; margin-bottom: 5px;">umits</div>
+        <div id="p1row" class="status-row" style="color: red;">
+            <span>p1</span>
+            <span id="p1gold">10 gold 0pcnt land</span>
+        </div>
+        <div id="p2row" class="status-row" style="color: blue;"
+        <span>p2</span>
+        <span id="p2gold">10 gold 0pcnt land</span>
+        <div>
+        </div>
+        <div>
+            <div style="font-weight: bolder; margin-bottom: 5px;">deploy</div>
+            <div class="shop">
+                <div id="pawn" class="shop-btn">pawn 2bucks</div>
+                <div id="rook" class="shop-btn">rook 6bucks</div>
+                <div id="farmland" class="shop-btn">farm 4bucks</div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div style="font-weight: bolder; margin-bottom: 5px;">log</div>
+        <div id="logfeed" class="logs"></div>
+        </div>
+    </div>
+</div>
+<script>
+    const grid = 6;
+    const cell = 60;
+    const canvas = document.getElementById("gridCanvas");
+    const ctx = canva.getContext("2d");
+
+    let board = [];
+    let units = [];
+    let turn = [];
+    let gold = [];
+    let selected = null;
+    let recruit = null;
+
+    function init() {
+        board = Arra(grid).fill(0).map(() => Array(grid).fill(0));
+        units = []
+        {}
+    }
