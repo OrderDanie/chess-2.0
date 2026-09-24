@@ -1,101 +1,374 @@
 <!DOCTYPE html>
-<html lang="en"
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>chess 2</title>
-    <style>
-     body {
-        font-family: monospace;
-        background: #ffffff;
-        color: #000000;
-        margin: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        }
-        canvas {
-        border: 2px solid #000000;
-        cursor: pointer;
-        }
-        .panel {
-        flex: 1;
-        border: 2px solid #000000;
-        padding: 15px;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        }
-        .shop {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 5px;
-        }
-        .shop-btn {
-        border: 1px solid #000000;
-        padding: 6px;
-        text-align: center;
-        cursor: pointer;
-        font-size: 0.8rem;
-        }
-        .shop-btn.selected {
-        background: #000000;
-        color: #ffffff;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess 2</title>
+  <style>
+    body {
+      font-family: monospace;
+      background: #ffffff;
+      color: #000000;
+      margin: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin: 0 0 5px 0;
+    }
+    .meta {
+      font-size: 0.8rem;
+      color: #555555;
+      margin-bottom: 20px;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+      max-width: 800px;
+      width: 100%;
+    }
+    canvas {
+      border: 2px solid #000000;
+      cursor: pointer;
+    }
+    .panel {
+      flex: 1;
+      border: 2px solid #000000;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px;
+      border-bottom: 1px dashed #000000;
+    }
+    .active-p {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    .btn {
+      font-family: monospace;
+      font-weight: bold;
+      background: #ffffff;
+      border: 2px solid #000000;
+      padding: 8px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #eeeeee;
+    }
+    .shop {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+    }
+    .shop-btn {
+      border: 1px solid #000000;
+      padding: 6px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .shop-btn.selected {
+      background: #000000;
+      color: #ffffff;
+    }
+    .logs {
+      border: 1px solid #000000;
+      height: 120px;
+      overflow-y: auto;
+      padding: 5px;
+      font-size: 0.75rem;
+      background: #fafafa;
+    }
+    .rules {
+      margin-top: 20px;
+      font-size: 0.8rem;
+      max-width: 800px;
+      line-height: 1.4;
+      border-top: 1px solid #000000;
+      padding-top: 10px;
+    }
+  </style>
 </head>
 <body>
-    <h1> chess 2</h1>
-    <div class="container>
-        <div>
-            <canvas id="gridCanvas" width="360" height="360"></canvas>
-            <div style="display: flex; gap: 7px; margin-top: 14px;">
-                <button id ="turnbtn" class="btn" style="flex: 1;">end turn</button>
-                <button id="resetbtn" class="btn">reset</button>
-        </div>
-    </div>
-    <div class="panel">
-        <div>
-            <div style="font-weight: bolder; margin-bottom: 5px;">umits</div>
-        <div id="p1row" class="status-row" style="color: red;">
-            <span>p1</span>
-            <span id="p1gold">10 gold 0pcnt land</span>
-        </div>
-        <div id="p2row" class="status-row" style="color: blue;"
-        <span>p2</span>
-        <span id="p2gold">10 gold 0pcnt land</span>
-        <div>
-        </div>
-        <div>
-            <div style="font-weight: bolder; margin-bottom: 5px;">deploy</div>
-            <div class="shop">
-                <div id="pawn" class="shop-btn">pawn 2bucks</div>
-                <div id="rook" class="shop-btn">rook 6bucks</div>
-                <div id="farmland" class="shop-btn">farm 4bucks</div>
-            </div>
-        </div>
-    </div>
+
+  <h1>CHESS 2</h1>
+  <div class="container">
     <div>
-        <div style="font-weight: bolder; margin-bottom: 5px;">log</div>
-        <div id="logfeed" class="logs"></div>
-        </div>
+      <canvas id="gridCanvas" width="360" height="360"></canvas>
+      <div style="display: flex; gap: 5px; margin-top: 10px;">
+        <button id="turnBtn" class="btn" style="flex: 1;">END TURN</button>
+        <button id="resetBtn" class="btn">RESET</button>
+      </div>
     </div>
-</div>
-<script>
-    const grid = 6;
-    const cell = 60;
+
+    <div class="panel">
+      <div>
+        <div style="font-weight: bold; margin-bottom: 5px;">units</div>
+        <div id="p1Row" class="status-row active-p" style="color: blue;">
+          <span>p1</span>
+          <span id="p1Gold">$10 Gold (0% land)</span>
+        </div>
+        <div id="p2Row" class="status-row" style="color: red;">
+          <span>p2</span>
+          <span id="p2Gold">$10 Gold 0% land</span>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight: bold; margin-bottom: 5px;">DEPLOY RECRUIT</div>
+        <div class="shop">
+          <div id="shopPawn" class="shop-btn">Pawn ($3)</div>
+          <div id="shopRook" class="shop-btn">Rook ($6)</div>
+          <div id="shopFarm" class="shop-btn">Farm ($4)</div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight: bold; margin-bottom: 5px;">log</div>
+        <div id="logFeed" class="logs"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const GRID = 6;
+    const CELL = 60;
     const canvas = document.getElementById("gridCanvas");
-    const ctx = canva.getContext("2d");
+    const ctx = canvas.getContext("2d");
 
     let board = [];
-    let units = [];
-    let turn = [];
-    let gold = [];
-    let selected = null;
-    let recruit = null;
+    let units = []; 
+    let turn = 1; 
+    let gold = { 1: 10, 2: 10 };
+    let selected = null; 
+    let recruit = null; 
 
     function init() {
-        board = Arra(grid).fill(0).map(() => Array(grid).fill(0));
-        units = []
-        {}
+      board = Array(GRID).fill(0).map(() => Array(GRID).fill(0));
+      units = [
+        { x: 1, y: 0, kind: "king", owner: 1, active: true },
+        { x: 4, y: 5, kind: "king", owner: 2, active: true },
+        { x: 1, y: 1, kind: "pawn", owner: 1, active: true },
+        { x: 4, y: 4, kind: "pawn", owner: 2, active: true }
+      ];
+
+      board[0][1] = 1;
+      board[1][1] = 1;
+      board[5][4] = 2;
+      board[4][4] = 2;
+
+      gold = { 1: 10, 2: 10 };
+      turn = 1;
+      selected = null;
+      recruit = null;
+
+      document.querySelectorAll(".shop-btn").forEach(b => b.classList.remove("selected"));
+      sync();
+      draw();
     }
+
+    function sync() {
+      const p1Pct = getLandPct(1);
+      const p2Pct = getLandPct(2);
+      document.getElementById("p1Gold").innerText = `$${gold[1]} Gold (${p1Pct}% land)`;
+      document.getElementById("p2Gold").innerText = `$${gold[2]} Gold (${p2Pct}% land)`;
+
+      if (turn === 1) {
+        document.getElementById("p1Row").classList.add("active-p");
+        document.getElementById("p2Row").classList.remove("active-p");
+      } else {
+        document.getElementById("p1Row").classList.remove("active-p");
+        document.getElementById("p2Row").classList.add("active-p");
+      }
+    }
+
+    function getLandPct(p) {
+      let n = 0;
+      for (let y = 0; y < GRID; y++) {
+        for (let x = 0; x < GRID; x++) {
+          if (board[y][x] === p) n++;
+        }
+      }
+      return Math.round((n / (GRID * GRID)) * 100);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let y = 0; y < GRID; y++) {
+        for (let x = 0; x < GRID; x++) {
+          const owner = board[y][x];
+          ctx.fillStyle = owner === 1 ? "#dbeafe" : owner === 2 ? "#fee2e2" : "#ffffff";
+          ctx.fillRect(x * CELL, y * CELL, CELL, CELL);
+          ctx.strokeStyle = "#dddddd";
+          ctx.strokeRect(x * CELL, y * CELL, CELL, CELL);
+        }
+      }
+
+      if (selected) {
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = 3;
+        ctx.strokeRect(selected.x * CELL + 2, selected.y * CELL + 2, CELL - 4, CELL - 4);
+        ctx.lineWidth = 1;
+      }
+
+      units.forEach(u => {
+        ctx.fillStyle = u.owner === 1 ? "blue" : "red";
+        ctx.beginPath();
+        ctx.arc(u.x * CELL + CELL / 2, u.y * CELL + CELL / 2, 18, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 14px monospace";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        const sym = u.kind === "king" ? "K" : u.kind === "pawn" ? "P" : u.kind === "rook" ? "R" : "F";
+        ctx.fillText(sym, u.x * CELL + CELL / 2, u.y * CELL + CELL / 2);
+
+        if (!u.active && u.kind !== "farm") {
+          ctx.fillStyle = "rgba(0,0,0,0.4)";
+          ctx.font = "9px monospace";
+          ctx.fillText("x", u.x * CELL + CELL / 2, u.y * CELL + CELL - 8);
+        }
+      });
+    }
+
+    function log(m) {
+      const f = document.getElementById("logFeed");
+      f.innerHTML += `<div>&gt; ${m}</div>`;
+      f.scrollTop = f.scrollHeight;
+    }
+
+    function paint(tx, ty, owner) {
+      for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+          const nx = tx + dx;
+          const ny = ty + dy;
+          if (nx >= 0 && nx < GRID && ny >= 0 && ny < GRID && Math.abs(dx) + Math.abs(dy) <= 1) {
+            board[ny][nx] = owner;
+          }
+        }
+      }
+    }
+
+    canvas.addEventListener("mousedown", (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = Math.floor((e.clientX - rect.left) / CELL);
+      const y = Math.floor((e.clientY - rect.top) / CELL);
+
+      if (x < 0 || x >= GRID || y < 0 || y >= GRID) return;
+
+      if (recruit) {
+        if (board[y][x] !== turn) {
+          log("Must deploy on owned territory.");
+          return;
+        }
+        if (units.some(u => u.x === x && u.y === y)) {
+          log("Tile occupied.");
+          return;
+        }
+        const cost = recruit === "pawn" ? 3 : recruit === "rook" ? 6 : 4;
+        if (gold[turn] < cost) {
+          log("Insufficient gold.");
+          return;
+        }
+
+        gold[turn] -= cost;
+        units.push({ x, y, kind: recruit, owner: turn, active: false });
+        paint(x, y, turn);
+        log(`Deployed ${recruit} at ${x},${y}.`);
+        recruit = null;
+        document.querySelectorAll(".shop-btn").forEach(b => b.classList.remove("selected"));
+        sync();
+        draw();
+      } else {
+        if (selected) {
+          const u = units.find(u => u.x === selected.x && u.y === selected.y);
+          if (u && u.owner === turn && u.active) {
+            const dx = Math.abs(x - selected.x);
+            const dy = Math.abs(y - selected.y);
+            const dist = dx + dy;
+
+            const range = u.kind === "rook" ? 3 : 1;
+            if (dist > 0 && dist <= range && (dx === 0 || dy === 0 || u.kind !== "rook")) {
+              const target = units.find(tu => tu.x === x && tu.y === y);
+              if (target) {
+                if (target.owner === turn) {
+                  log("Cannibalism forbidden.");
+                } else {
+                  log(`Captured enemy ${target.kind}!`);
+                  if (target.kind === "king") {
+                    alert(`P${turn} (Sovereign) Wins!`);
+                    init();
+                    return;
+                  }
+                  units = units.filter(item => item !== target);
+                  u.x = x;
+                  u.y = y;
+                  u.active = false;
+                  paint(x, y, turn);
+                }
+              } else {
+                u.x = x;
+                u.y = y;
+                u.active = false;
+                paint(x, y, turn);
+                log(`Moved to ${x},${y}.`);
+              }
+              selected = null;
+              sync();
+              draw();
+              return;
+            }
+          }
+        }
+        selected = { x, y };
+        draw();
+      }
+    });
+
+    document.getElementById("turnBtn").addEventListener("click", () => {
+      const farms = units.filter(u => u.owner === turn && u.kind === "farm").length;
+      const base = Math.floor(getLandPct(turn) / 10) + 1;
+      const yieldAmt = base + farms * 3;
+      gold[turn] += yieldAmt;
+      log(`P${turn} turn ended. Gained +$${yieldAmt}.`);
+
+      turn = turn === 1 ? 2 : 1;
+      units.forEach(u => { if (u.owner === turn) u.active = true; });
+      selected = null;
+      recruit = null;
+      document.querySelectorAll(".shop-btn").forEach(b => b.classList.remove("selected"));
+      sync();
+      draw();
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", init);
+
+    function selectRecruit(kind, el) {
+      selected = null;
+      if (recruit === kind) {
+        recruit = null;
+        el.classList.remove("selected");
+      } else {
+        document.querySelectorAll(".shop-btn").forEach(b => b.classList.remove("selected"));
+        recruit = kind;
+        el.classList.add("selected");
+      }
+      draw();
+    }
+
+    document.getElementById("shopPawn").addEventListener("click", function() { selectRecruit("pawn", this); });
+    document.getElementById("shopRook").addEventListener("click", function() { selectRecruit("rook", this); });
+    document.getElementById("shopFarm").addEventListener("click", function() { selectRecruit("farm", this); });
+
+    init();
+  </script>
+</body>
+</html>
