@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #fdf3dc;
+  --ink: # ;
+  --ocean: #43a6dd;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Comic Neue", "Comic Sans MS", "Chalkboard SE", "Segoe Print", "Bradley Hand", cursive, sans-serif;
+  color: var(--ink);
+  background-color: var(--ocean);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1.5px, transparent 1.6px),
+    radial-gradient(rgba(0, 0, 0, 0.06) 1.5px, transparent 1.6px);
+  background-size: 26px 26px, 26px 26px;
+  background-position: 0 0, 13px 13px;
+  overscroll-behavior: none;
+}
+
+.doodle {
+  position: relative;
+  color: var(--ink);
+}
+
+.doodle > * {
+  position: relative;
+  z-index: 1;
+}
+
+.doodle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--panel, var(--paper));
+  border: 3px solid var(--ink);
+  border-radius: 18px 26px 20px 24px / 24px 18px 26px 20px;
+  filter: url(#wobbly);
+  box-shadow: 4px 5px 0 rgba(43, 33, 24, 0.22);
+  z-index: 0;
+}
+
+.doodle-tight::before {
+  border-radius: 12px 16px 13px 15px / 15px 12px 16px 13px;
+  border-width: 2.5px;
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+  transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  color: var(--ink);
+  font-weight: 700;
+  user-select: none;
+}
+
+.btn > * {
+  position: relative;
+  z-index: 1;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--panel, var(--paper));
+  border: 3px solid var(--ink);
+  border-radius: 14px 20px 15px 18px / 18px 14px 20px 15px;
+  filter: url(#wobbly);
+  box-shadow: 3px 3px 0 rgba(43, 33, 24, 0.25);
+  z-index: 0;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px) rotate(-0.5deg);
+}
+
+.btn:hover::before {
+  box-shadow: 5px 6px 0 rgba(43, 33, 24, 0.35);
+}
+
+.btn:active {
+  transform: translate(2px, 2px) rotate(0.2deg);
+}
+
+.btn:active::before {
+  box-shadow: 1px 1px 0 rgba(43, 33, 24, 0.25);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn:disabled::before {
+  box-shadow: 1px 1px 0 rgba(43, 33, 24, 0.1);
+}
+
+.tilt-a {
+  transform: rotate(-0.8deg);
+}
+
+.tilt-b {
+  transform: rotate(0.7deg);
+}
+
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: rgba(43, 33, 24, 0.35);
+  border-radius: 6px;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.85) rotate(-2deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.pop {
+  animation: pop 0.18s ease-out;
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(-1.2deg);
+  }
+  50% {
+    transform: rotate(1.2deg);
+  }
+}
+
+.wiggle {
+  animation: wiggle 2.4s ease-in-out infinite;
+}
+
+@keyframes float-hero-a {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-0.5deg);
+  }
+}
+
+@keyframes float-hero-b {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(0.5deg);
+  }
+}
+
+.animate-float-skirmish {
+  animation: float-hero-a 3.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-float-multiplayer {
+  animation: float-hero-b 3.6s ease-in-out infinite 0.4s;
+  will-change: transform;
+}
+
+.animate-float-skirmish:hover,
+.animate-float-multiplayer:hover {
+  animation-play-state: paused;
+}

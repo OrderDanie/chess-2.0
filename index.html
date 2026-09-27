@@ -1,3 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Chess 2.0</title>
+    <meta name="description" content="as if chess 1 wasnt enough, so what if chess, was a tbs tactical war game? Yeaaaa that’s chess 2, Chess 2 is a turn-based strategy game that combines chess with 4X systems You capture territory, build farms, grow your economy, spawn units, and fight for control of the map. It is not just about moving pieces well. You also need to expand, defend key areas, manage resources, and deal with diplomacy The game has have both singleplayer and multiplayer, with matches built around map control, army management, and long-term decision making" />
+    <meta property="og:title" content="Chess 2, a 4X strategy" />
+    <meta property="og:description" content="as if chess 1 wasnt enough, so what if chess, was a tbs tactical war game? Yeaaaa that’s chess 2, Chess 2 is a turn-based strategy game that combines chess with 4X systems You capture territory, build farms, grow your economy, spawn units, and fight for control of the map. It is not just about moving pieces well. You also need to expand, defend key areas, manage resources, and deal with diplomacy The game has have both singleplayer and multiplayer, with matches built around map control, army management, and long-term decision making" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- ass papery effect-->
+    <svg width="0" height="0" class="absolute pointer-events-none" style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+        <defs>
+          <filter id="wobbly">
+            <feTurbulence type="fractalNoise" baseFrequency="0.024" numOctaves="3" seed="7" results="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.3" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+          <filter id="wobbly-strong">
+            <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="3" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+    </svg>
+    
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -372,3 +409,5 @@
   </script>
 </body>
 </html>
+
+>>>>>>> 161315ec205fa8eec35e631862a5076a14501dfb
