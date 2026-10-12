@@ -1,4 +1,4 @@
-import { PawPrint, PieChart } from "lucide-react"
+import { Expand, PawPrint, PieChart } from "lucide-react"
 
 export type PieceKind =
  | "pawn"
@@ -36,9 +36,8 @@ export interface PieceDef {
   ability?: "detonate" | "teleport" | "chain" | "copy";
   claim: number;
   blurb: string;
-}
-
-export const PIECES: Partial<Record<PieceKind, PieceDef>> = {
+};
+export const PIECES: Record<PieceKind, PieceDef> = {
     pawn: {
         kind: "pawn",
         name: "Pawn",
@@ -90,7 +89,7 @@ export const PIECES: Partial<Record<PieceKind, PieceDef>> = {
         terrain: "land",
         claim: 2,
         blurb: "CEO of the board, pure violence, doesnt give a fuck if she dies, she ALWAYS COMES BACK, but this this will cost you ",
-    }
+    },
     king: {
         kind: "king",
         name: "KIng",
@@ -117,7 +116,7 @@ export const PIECES: Partial<Record<PieceKind, PieceDef>> = {
         claim: 1,
         ability: "copy",
         blurb: "airborn mf, can fly over any thing, eats anything, but will cost ur liver to deploy",
-    }
+    },
     nuke: {
         kind: "nuke",
         name: "Nuke",
@@ -150,14 +149,197 @@ export const PIECES: Partial<Record<PieceKind, PieceDef>> = {
     spider: {
         kind: "spider",
         name: "Spider",
-        cost: ,
-        upkeep: ,
-        income: ,
-        move: "",
-        dirs: "",
-        range: ,
-        terrain: "",
-        claim: ,
-        blurb: ,
-    }
+        cost: 11,
+        upkeep: 3,
+        income: 0,
+        move: "fly",
+        dirs: "all",
+        range: 2,
+        terrain: "any",
+        claim: 1,
+        blurb: "the queen fears it cuz shes a WOMA-",
+    },
+    snake: {
+        kind: "snake",
+        name: "Snake",
+        cost: 16,
+        upkeep: 2,
+        income: 0,
+        move: "slide",
+        dirs: "ortho",
+        range: 4,
+        terrain: "land",
+        ability: "chain",
+        claim: 1,
+        blurb: "a snake never attacks and stays infront of the enemie, smort",
+    },
+    plane: {
+        kind: "plane",
+        name: "Plane",
+        cost: 16,
+        upkeep: 4,
+        income: 0,
+        move: "fly",
+        dirs: "all",
+        range: 5,
+        terrain: "any",
+        claim: 1,
+        blurb: "the french feared this tech, and so will the other players",
+    },
+    boat: {
+        kind: "boat",
+        name: "Boat",
+        cost: 8,
+        upkeep: 2,
+        income: 1,
+        move: "slide",
+        dirs: "ortho",
+        range: 5,
+        terrain: "water",
+        claim: 1,
+        blurb: "Big Boi, Small Boat",
+    },
+},
+    farm: {
+        kind: "farm",
+        name: "Farm",
+        cost: 6,
+        upkeep: 0,
+        income: 3,
+        move: "none",
+        dirs: "all",
+        range: 0,
+        terrain: "land",
+        claim: 1,
+        building: true,
+        blurb: "it aint much, but its honest work",
+    },
+    harbor: {
+        kind: "harbor",
+        name: "Harbor",
+        cost: 7,
+        upkeep: 0,
+        income: 2,
+        move: "none",
+        dirs: "all",
+        range: 0,
+        terrain: "land",
+        claim: 1,
+        building: true,
+        blurb: "WE GONNA SEE THE C",
+    },
+    tank: {
+        kind: "tank",
+        name: "Tank",
+        cost: 13,
+        upkeep: 4,
+        income: 0,
+        move: "slide",
+        dirs: "ortho",
+        range: 2,
+        terrain: "land",
+        calim: 2,
+        blurb: "THE FRENCH ARE GETTING FLASH BACKS AGAIN",
+    },
+};
+
+export const CLASSIC_ORDER: PieceKind[] = [
+    "pawn",
+    "knight",
+    "bishop",
+    "rook",
+    "queen",
+    "tank",
+    "farm",
+    "harbor",
+    "boat",
+    "snake",
+    "spider",
+    "portal",
+    "plane",
+    "nuke"
+]
+
+export const CLASSIC_SHOP: PieceKind[] = [
+"pawn",
+"knight",
+"bishop",
+"rook",
+"queen",
+"tank",
+"farm",
+"harbor",
+];
+
+export function shopFor(mode: GameMode): PieceKind[] {
+      if (mode === "classic") return CLASSIC_SHOP;
+      return SHOP_ORDER;
+}
+
+export interface Unit {
+      id: number;
+        kind: PieceKind;
+        owner: number;
+        extra?: number;
+        memory?: PieceKind;
+        xp?: number;
+        rank?: number;
+}
+
+export interface Player {
+      id: number;
+      name: string;
+      color: string;
+      gold: number;
+      alive: boolean;
+      isAI: boolean;
+      skill: "easy" | "normal" | "brutal";
+      time: number;
+      eliminatedTurn?: number;
+}
+
+export interface Treaty {
+    a: number;
+    b: number;
+    until: number;
+}
+export interface LogEntry {
+    turn: number;
+    player: number;
+    text: string ;
+    kind: "move" | "buy" | "capture" | "diplo" | "boom" | "system";
+}
+export interface DiploOffer {
+    peaceTurns: number;
+    gold: number;
+    demandGold: number;
+}
+export interface Offer extends DiploOffer {
+    id: number;
+    from: number;
+    to: number;
+}
+export interface GameState {
+    w: number;
+    h: number;
+    land: number[];
+    owner: number[];
+    units: (Unit | null)[];
+    players: Player[];
+    current: number;
+    turn: number;
+    round: number;
+    mode: GameMode;
+    apName: string;
+    treaties: Treaty[];
+    offers: Offer[];
+    log: LogEntry[];
+    winner: number | null;
+    nextId: number;
+    rng: number;
+    clock: number;
+    increment: number;
+    lastMove?: { from: number; to: number } | null;
+    boom?: { at: number; turn: number } | null;
+    weather?: "sun" | "fog" | "blizzard" | "storm";
 }
