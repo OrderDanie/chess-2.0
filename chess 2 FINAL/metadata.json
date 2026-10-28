@@ -1,0 +1,8 @@
+{
+  "name": "Chess 2 - 4X Strategy",
+  "description": "Hand-drawn turn-based strategy crossing chess piece movements with 4X territory expansion, farms, naval battles, diplomacy, and multiplayer.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

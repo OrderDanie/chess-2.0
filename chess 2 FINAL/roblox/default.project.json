@@ -1,0 +1,33 @@
+{
+  "name": "Chess2",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Chess2": {
+        "$path": "src/ReplicatedStorage/Chess2"
+      }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "Chess2Server": {
+        "$path": "src/ServerScriptService/Chess2Server.server.luau"
+      }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "Chess2Client": {
+          "$path": "src/StarterPlayerScripts/Chess2Client.client.luau"
+        }
+      }
+    },
+    "StarterGui": {
+      "$className": "StarterGui",
+      "Chess2Gui": {
+        "$path": "src/StarterGui/Chess2Gui.luau"
+      }
+    }
+  }
+}

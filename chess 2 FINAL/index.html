@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chess 2 - 4X Strategy</title>
+    <meta name="description" content="Hand-drawn turn-based strategy crossing chess piece movements with 4X territory expansion, farms, naval battles, diplomacy, and multiplayer." />
+    <meta property="og:title" content="Chess 2 - 4X Strategy" />
+    <meta property="og:description" content="Hand-drawn turn-based strategy crossing chess piece movements with 4X territory expansion, farms, naval battles, diplomacy, and multiplayer." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#2b2118" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M6,26 L26,26 L24,12 L19,18 L16,8 L13,18 L8,12 Z' fill='%23fdf3dc' stroke='%232b2118' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/><circle cx='16' cy='5' r='1.5' fill='%232b2118'/><circle cx='7' cy='10' r='1.5' fill='%232b2118'/><circle cx='25' cy='10' r='1.5' fill='%232b2118'/><line x1='10' y1='21' x2='22' y2='21' stroke='%232b2118' stroke-width='1.5' stroke-linecap='round'/></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <noscript>
+      <div style="display: flex; align-items: center; justify-content: center; position: fixed; inset: 0; background-color: #2b2118; color: #fdf3dc; font-family: 'Comic Neue', sans-serif; text-align: center; padding: 20px;">
+        <div>
+          <h2>JavaScript Required</h2>
+          <p>Please enable JavaScript to play Chess 2 - 4X Strategy.</p>
+        </div>
+      </div>
+    </noscript>
+
+    <svg width="0" height="0" class="absolute pointer-events-none" style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+      <defs>
+        <filter id="wobbly">
+          <feTurbulence type="fractalNoise" baseFrequency="0.024" numOctaves="3" seed="7" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.4" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <filter id="wobbly-strong">
+          <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="4" seed="3" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </defs>
+    </svg>
+
+    <div id="root">
+      <!-- Clean, minimal paper-and-ink themed loading screen with chess pieces -->
+      <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        inset: 0;
+        background-color: #2b2118; /* Sovereign ink background */
+        font-family: 'Comic Neue', 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+        color: #fdf3dc; /* Parchment-colored text */
+        z-index: 99999;
+        padding: 20px;
+        text-align: center;
+      " id="html-loader">
+        <div style="max-width: 300px; width: 100%;">
+          <!-- Custom-drawn inline chess pieces in parchment color -->
+          <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 20px; opacity: 0.95;">
+            <!-- Pawn -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 36px; height: 36px;" fill="none" stroke="#fdf3dc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="6" r="2.5" />
+              <path d="M12,8.5 C9.5,8.5 7.5,11 7.5,13 C7.5,15 9,17 9,19 L15,19 C15,17 16.5,15 16.5,13 C16.5,11 14.5,8.5 12,8.5 Z" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+            </svg>
+            <!-- King -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 42px; height: 42px;" fill="none" stroke="#fdf3dc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5,19 L19,19 L17.5,9 L14,13.5 L12,6 L10,13.5 L6.5,9 Z" />
+              <line x1="7" y1="16" x2="17" y2="16" />
+              <line x1="7" y1="21" x2="17" y2="21" />
+            </svg>
+            <!-- Knight -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 36px; height: 36px;" fill="none" stroke="#fdf3dc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16.5,19 C15,19 14,17.5 13.5,16.5 C13,15.5 12,13 12,13 C12,13 10.5,12 9,11 C7.5,10 6.5,8 6.5,6 C6.5,4 8.5,3.5 10,4.5 C11.5,5.5 12.5,7.5 13,8.5 C13.5,7 15,5 16.5,6 C18,7 18.5,9.5 17.5,11 C16.5,12.5 15,14 15,14 L15,19 Z" />
+              <line x1="8" y1="21" x2="16" y2="21" />
+            </svg>
+          </div>
+          <h2 style="font-size: 22px; font-weight: bold; letter-spacing: 0.5px; margin: 0; text-transform: uppercase;">
+            Chess 2 - 4X Strategy
+          </h2>
+          <p style="font-size: 13px; opacity: 0.7; margin: 8px 0 0 0; font-weight: bold;">
+            Loading sovereign realms...
+          </p>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
